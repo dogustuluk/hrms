@@ -2,8 +2,11 @@ package kodlamaio.hrms.core.utilities.adapters;
 
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Service;
+
 import kodlamaio.hrms.fakeServices.FakeMernisService;
 
+@Service
 public class MernisServiceAdapter implements ValidationService{
 
 	@Override

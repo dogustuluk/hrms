@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "verificationCodes")
+@Table(name = "verification_codes")
 public class VerificationCode {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,8 @@ public class VerificationCode {
 	
 	@Column(name = "user_id")
 	private int user_id;
-	@Column(name = "codes")
-	private String codes;
+	@Column(name = "code")
+	private String code;
 	@Column(name = "is_confirm")
 	private boolean isConfirm;
 	@Column(name = "confirm_date")
