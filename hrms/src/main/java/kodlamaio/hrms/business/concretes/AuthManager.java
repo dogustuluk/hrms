@@ -51,7 +51,7 @@ public class AuthManager implements AuthService{
 		
 		if(!checkIfEqualEmailAndDomain(employer.getEmail(), employer.getWebSite())){
 			return new ErrorResult("Geçersiz e-posta adresi");
-		}
+		} //kontrol et
 		
 		if(!checkIfEmailExist(employer.getEmail())) {
 			return new ErrorResult("girilen email adresi mevcut, lütfen başka bir email adresi ile kayıt olun");
@@ -72,7 +72,7 @@ public class AuthManager implements AuthService{
 	
 	@Override
 	public Result registerCandidate(Candidate candidate, String confirmPassword) {
-		/*
+	/*
 		if(!checkIfRealPerson(candidate.getIdentificationNumber(), candidate.getFirstName(), candidate.getLastName(), candidate.getDateOfBirth().getYear()) == true) {
 			return new ErrorResult("T.C. kimlik numarası doğrulanamadı");
 		}*/
@@ -91,11 +91,7 @@ public class AuthManager implements AuthService{
 			return new ErrorResult("e-posta kayıtlı");
 		}
 		
-		
-		
-		
-		
-		
+				
 		candidateService.add(candidate);
 		String code = verificationService.sendCode();
 		generatedCode(code, candidate.getId(), candidate.getEmail());
