@@ -19,11 +19,12 @@ public class AuthController {
 	
 	@Autowired
 	public AuthController(AuthService authService) {
+		super();
 		this.authService = authService;
 	}
 	
 	@PostMapping("/registerEmployer")
-	public Result registerEmployer(@RequestBody Employer employer, String confirmPassword) {
+	public Result registerEmployer(Employer employer, String confirmPassword) {
 		return authService.registerEmployer(employer, confirmPassword);
 	}
 

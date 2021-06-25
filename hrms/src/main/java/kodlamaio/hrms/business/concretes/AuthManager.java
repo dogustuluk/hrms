@@ -45,9 +45,13 @@ public class AuthManager implements AuthService{
 	
 	@Override
 	public Result registerEmployer(Employer employer, String confirmPassword) {
-		if (!checkIfEqualEmailAddressDomain(confirmPassword, confirmPassword)) {
-			return new ErrorResult("geçersiz email adresi, email bilginizi gözden geçiriniz");
+		if(!checkIfNullInfoForEmployer(employer)) {
+			return new ErrorResult("lütfen eksik bilgilerinizi tamamlayınız");
 		}
+		
+		/*if (!checkIfEqualEmailAndDomain(employer.getEmail(), employer.getWebSite())) {
+			return new ErrorResult("geçersiz email adresi, email bilginizi gözden geçiriniz");
+		}*/
 		
 		if(!checkIfEmailExist(employer.getEmail())) {
 			return new ErrorResult("girilen email adresi mevcut, lütfen başka bir email adresi ile kayıt olun");
@@ -69,7 +73,14 @@ public class AuthManager implements AuthService{
 	}
 	
 	
-	public boolean checkIfEqualEmailAddressDomain(String email, String website) {
+	public boolean checkIfNullInfoForEmployer(Employer employer) {
+		if(employer.getCompanyName() !=null && employer.getWebSite() !=null && employer.getEmail() != null && employer.getPhoneNumber() != null && employer.getPassword() != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkIfEqualEmailAndDomain(String email, String website) {
 		String[] emailArr = email.split("@", 2);
 		String domain = website.substring(4, website.length());
 		
