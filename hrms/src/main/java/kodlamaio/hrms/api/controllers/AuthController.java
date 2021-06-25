@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.hrms.business.abstracts.AuthService;
 import kodlamaio.hrms.core.utilities.results.Result;
+import kodlamaio.hrms.entities.concretes.Candidate;
 import kodlamaio.hrms.entities.concretes.Employer;
 
 @RestController
 @RequestMapping("/api/verification")
-@CrossOrigin
+//@CrossOrigin
 public class AuthController {
 	private AuthService authService;
 	
@@ -27,6 +28,12 @@ public class AuthController {
 	public Result registerEmployer(Employer employer, String confirmPassword) {
 		return authService.registerEmployer(employer, confirmPassword);
 	}
+	
+	@PostMapping("/registerCandidate")
+	public Result registerCandidate(Candidate candidate, String confirmPassword) {
+		return authService.registerCandidate(candidate, confirmPassword);
+	}
+	
 
 
 }

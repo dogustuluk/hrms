@@ -49,12 +49,16 @@ public class AuthManager implements AuthService{
 			return new ErrorResult("lütfen eksik bilgilerinizi tamamlayınız");
 		}
 		
-		/*if (!checkIfEqualEmailAndDomain(employer.getEmail(), employer.getWebSite())) {
-			return new ErrorResult("geçersiz email adresi, email bilginizi gözden geçiriniz");
-		}*/
+		if(!checkIfEqualEmailAndDomain(employer.getEmail(), employer.getWebSite())){
+			return new ErrorResult("Geçersiz e-posta adresi");
+		}
 		
 		if(!checkIfEmailExist(employer.getEmail())) {
 			return new ErrorResult("girilen email adresi mevcut, lütfen başka bir email adresi ile kayıt olun");
+		}
+		
+		if(!checkIfEqualPasswordAndConfirmPassword(employer.getPassword(), confirmPassword)) {
+			return new ErrorResult("Şifreler farklı, lütfen şifreleri kontrol edin");
 		}
 		
 		
@@ -68,8 +72,30 @@ public class AuthManager implements AuthService{
 	
 	@Override
 	public Result registerCandidate(Candidate candidate, String confirmPassword) {
-		// TODO Auto-generated method stub
-		return null;
+		/*
+		if(!checkIfRealPerson(candidate.getIdentificationNumber(), candidate.getFirstName(), candidate.getLastName(), candidate.getDateOfBirth().getYear()) == true) {
+			return new ErrorResult("T.C. kimlik numarası doğrulanamadı");
+		}*/
+		
+		if(!checkIfNullInfoForCandidate(candidate, confirmPassword)) {
+			return new ErrorResult("Eksik bilgilerinizi tamamlayınız");
+		}
+		
+		/*
+		if(!checkIfExistsNationalId(candidate.getIdentificationNumber())) {
+			return new ErrorResult("bu kimlik numarasına ait kişi kayıtlıdır");
+		}
+		*/
+		
+		
+		
+		
+		
+		
+		candidateService.add(candidate);
+		String code = verificationService.sendCode();
+		generatedCode(code, candidate.getId(), candidate.getEmail());
+		return new SuccessResult("Kayıt başarılı");
 	}
 	
 	
@@ -98,12 +124,35 @@ public class AuthManager implements AuthService{
 		return false;
 	}
 	
+	private boolean checkIfEqualPasswordAndConfirmPassword(String password, String confirmPassword) {
+		if(!password.equals(confirmPassword)) {
+			return false;
+		}
+		return true;
+	}
+	
 	private boolean checkIfRealPerson(long identificationNumber, String firstName, String lastName, LocalDate dateOfBirth) {
 		if(validationService.validateByMernis(identificationNumber, firstName, lastName, dateOfBirth)) {
 			return true;
 		}
 		return false;
 	}
+	
+	private boolean checkIfNullInfoForCandidate(Candidate candidate, String confirmPassword) {
+		if(candidate.getDateOfBirth() != null && candidate.getEmail() != null && candidate.getFirstName() != null && candidate.getIdentificationNumber() != null
+				&& candidate.getLastName() != null && candidate.getPassword() != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean checkIfExistsNationalId(String identificationNumber) {
+		if(this.candidateService.getCandidateByIdentificationNumber(identificationNumber).getData() == null) {
+			return true;
+		}
+		return false;
+	}
+	
 	
 	public void generatedCode(String code, int id, String email) {
 		VerificationCode verificationCode = new VerificationCode(id,id,code,false,LocalDate.now());
