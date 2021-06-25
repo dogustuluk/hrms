@@ -8,6 +8,7 @@ import kodlamaio.hrms.entities.concretes.Candidate;
 
 public interface CandidateService {
 	Result add(Candidate candidate);
+	DataResult<Candidate> getById(int id);
 	DataResult<List<Candidate>> getAll();
 	DataResult<Candidate> getCandidateByIdentificationNumber(String identificationNumber);
 

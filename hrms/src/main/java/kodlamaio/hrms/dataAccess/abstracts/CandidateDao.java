@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import kodlamaio.hrms.entities.concretes.Candidate;
 
 public interface CandidateDao extends JpaRepository<Candidate, Integer>{
-	List<Candidate> findCandidateByIdentificationNumber(String identificationNumber);
+	//List<Candidate> findCandidateByIdentificationNumber(String identificationNumber);
+	Candidate findCandidateByIdentificationNumber(String identificationNumber);
+	Candidate getById(int id);
 
 }

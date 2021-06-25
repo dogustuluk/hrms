@@ -81,11 +81,15 @@ public class AuthManager implements AuthService{
 			return new ErrorResult("Eksik bilgilerinizi tamamlayınız");
 		}
 		
-		/*
+		
 		if(!checkIfExistsNationalId(candidate.getIdentificationNumber())) {
 			return new ErrorResult("bu kimlik numarasına ait kişi kayıtlıdır");
 		}
-		*/
+		
+		
+		if(!checkIfEmailExist(candidate.getEmail())) {
+			return new ErrorResult("e-posta kayıtlı");
+		}
 		
 		
 		
