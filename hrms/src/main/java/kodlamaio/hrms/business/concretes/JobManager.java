@@ -9,7 +9,7 @@ import kodlamaio.hrms.business.abstracts.JobService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobDao;
-import kodlamaio.hrms.entities.concretes.jobs;
+import kodlamaio.hrms.entities.concretes.Jobs;
 
 @Service
 public class JobManager implements JobService {
@@ -23,8 +23,8 @@ public class JobManager implements JobService {
 	}
 	
 	@Override
-	public DataResult<List<jobs>> getAll() {
-		return new SuccessDataResult<List<jobs>>(this.jobDao.findAll(), "sistemdeki iş pozisyonlarının tümü listelendi");
+	public DataResult<List<Jobs>> getAll() {
+		return new SuccessDataResult<List<Jobs>>(this.jobDao.findAll(), "sistemdeki iş pozisyonlarının tümü listelendi");
 		
 		
 		

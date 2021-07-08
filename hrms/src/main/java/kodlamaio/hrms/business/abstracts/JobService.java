@@ -3,10 +3,10 @@ package kodlamaio.hrms.business.abstracts;
 import java.util.List;
 
 import kodlamaio.hrms.core.utilities.results.DataResult;
-import kodlamaio.hrms.entities.concretes.jobs;
+import kodlamaio.hrms.entities.concretes.Jobs;
 
 public interface JobService {
-	DataResult<List<jobs>> getAll();
+	DataResult<List<Jobs>> getAll();
 	
 	
 }
